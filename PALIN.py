@@ -1,9 +1,10 @@
 from sys import stdin, stdout
 import sys
-t=stdin.readline()
-#t =str(t)
-#if not (isinstance(t,int)):
-    #sys.exit('')
+
+t = stdin.readline()
+# t =str(t)
+# if not (isinstance(t,int)):
+# sys.exit('')
 '''
 try:
     t=int(t)
@@ -11,8 +12,8 @@ try:
 except ValueError:
     sys.exit('errororororororo')
 '''
-olist=list()
-mlist=list()
+olist = list()
+mlist = list()
 
 
 def allNine(line, length):
@@ -22,18 +23,15 @@ def allNine(line, length):
     return True
 
 
-
 def main():
     olist = stdin.readlines()
-    olist=[w.replace('\n','') for w in olist]
-    #print (olist)
+    olist = [w.replace('\n', '') for w in olist]
+    # print (olist)
     for line in olist:
         length = len(line)
         mid = int(length / 2)
 
-
-        if(length==0):
-            line=''
+        if (length == 0):
             mlist.append('')
         elif (allNine(line, length)):
             line = int(line) + 2
@@ -45,16 +43,16 @@ def main():
             line = str(line)
             mlist.append(line)
 
-        elif (length % 2 == 0):
+        elif length % 2 == 0:
             fhalf = line[:mid]
             temp = fhalf[::-1]
             shalf = line[mid:]
-            #print ("even length:\nfhalf: {}  shalf is: {}".format(fhalf, shalf))
-            if (int(shalf) < int(fhalf)):
+            # print ("even length:\nfhalf: {}  shalf is: {}".format(fhalf, shalf))
+            if int(shalf) < int(fhalf):
                 line = fhalf + temp
                 mlist.append(line)
 
-            if (int(shalf) >= int(fhalf)):
+            if int(shalf) >= int(fhalf):
                 popy = int(fhalf[::-1])
                 if (popy > int(shalf)):
                     line = fhalf + str(popy)
@@ -67,21 +65,21 @@ def main():
                     line = fhalf + temp
                     mlist.append(line)
 
-        elif (length % 2 != 0 and length != 1):
+        elif length % 2 != 0 and length != 1:
             fhalf = line[:mid]
             shalf = line[mid + 1:]
-            #print ("odd length:\nfhalf: {} shalf is: {}".format(fhalf,shalf))
-            if (int(shalf) == int(fhalf)):
+            # print ("odd length:\nfhalf: {} shalf is: {}".format(fhalf,shalf))
+            if int(shalf) == int(fhalf):
                 r = int(line[mid])
                 r += 1
                 r = str(r)
                 line = fhalf + r + shalf
                 mlist.append(line)
-            if (int(shalf) > int(fhalf)):
 
+            if int(shalf) > int(fhalf):
                 popy = int(fhalf[::-1])
 
-                if (popy > int(shalf)):
+                if popy > int(shalf):
                     line = line[:mid + 1] + str(popy)
                     mlist.append(line)
                 else:
@@ -92,24 +90,18 @@ def main():
                     r = (line[mid:mid + 1])
                     line = fhalf + r + temp
                     mlist.append(line)
-            if (int(shalf) < int(fhalf)):
-                temp = fhalf[::-1]
+            if int(shalf) < int(fhalf):
                 temp = fhalf[::-1]
                 r = (line[mid:mid + 1])
                 line = fhalf + r + temp
                 mlist.append(line)
-        #stdout.write(line)
-        #stdout.write('\n')
+        # stdout.write(line)
+        # stdout.write('\n')
 
     for elem in mlist:
         stdout.write(elem)
         stdout.write('\n')
 
+
 if __name__ == "__main__":
     main()
-
-
-
-
-
-

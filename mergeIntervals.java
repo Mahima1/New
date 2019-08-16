@@ -5,11 +5,6 @@ class Interval {
     int start;
     int end;
 
-    Interval() {
-        start = 0;
-        end = 0;
-    }
-
     Interval(int s, int e) {
         start = s;
         end = e;
@@ -23,43 +18,45 @@ public class mergeIntervals {
         return merged;
     }
 
-    public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
-        ArrayList<Interval> res = new ArrayList<Interval>();
-        int len = intervals.size();
-
-        //trivial case
-        if (len == 0) {
-            res.add(newInterval);
-            return res;
-        } else if (intervals.get(len - 1).end < newInterval.start) {
-            intervals.add(newInterval);
-            return intervals;
-        } else if (intervals.get(0).start > newInterval.end) {
-            Collections.reverse(intervals);
-            intervals.add(newInterval);
-            Collections.reverse(intervals);
-            return intervals;
-        }
-        //ended trivial cases
-        Stack<Interval> st = new Stack<>();
-        st.push(newInterval);
-
-        for (int i = 0; i < len; i++) {
-            if (intervals.get(i).start <= st.peek().start || intervals.get(i).start >= st.peek().end) {
-                Interval temp = st.peek();
-                st.pop();
-                st.push(merge(temp, intervals.get(i)));
-                 System.out.println(st);
-            } else {
-                st.push(intervals.get(i));
+    static ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+        ArrayList<Interval> res = new ArrayList<>();
+        Interval current = newInterval;
+        int i = 0;
+        while (i < intervals.size()) {
+            Interval llist = intervals.get(i);
+            if (llist.end < current.start) {
+                i++;
+            } else if (llist.start > current.end) {
+                intervals.add(i,current);
+                break;
+            }else{
+                intervals.remove(i);
+                current=merge(llist, current);
             }
         }
-
-        Iterator<Interval> itr = st.iterator();
-        while (itr.hasNext()) {
-            res.add(st.pop());
+        if (i==intervals.size()){
+            intervals.add(current);
         }
-        return res;
+        return  intervals;
+
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Interval> A = new ArrayList<>();
+        Interval q = new Interval(1, 2);
+        A.add(q);
+        Interval w = new Interval(3, 5);
+        A.add(w);
+        Interval e = new Interval(6, 7);
+        A.add(e);
+        Interval r = new Interval(8, 10);
+        A.add(r);
+        Interval t = new Interval(12, 16);
+        A.add(t);
+        System.out.println(A);
+
+        Interval newInterval = new Interval(2, 5);
+        System.out.println(insert(A, newInterval));
     }
 }
 

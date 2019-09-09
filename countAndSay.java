@@ -13,22 +13,16 @@ class countAndSay {
             char current = a.charAt(0);
             newa="";
             count=0;
-//            System.out.println("a len is : "+a.length());
             for (int i = 0; i < a.length(); i++) {
                 if (current != a.charAt(i)) {
                     newa = newa + (count) + (a.charAt(i - 1));
-//                    System.out.println("newa is :" + newa);
-//                    System.out.println("  count is "+count);
                     count = 1;
                     current = a.charAt(i);
                 } else {
                     count++;
                 }
             }
-            char c = a.charAt(a.length()-1);
-//            System.out.println(" c is "+c);
-//            System.out.println("count after loop is "+count);
-            newa = newa + (count) + (c);
+            newa = newa + (count) + (a.charAt(a.length()-1));
             a=newa;
         }
         return a;
